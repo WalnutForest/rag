@@ -17,6 +17,4 @@ st.set_page_config(
 
 st.session_state["project_path"] = project_path
 
-st.write("# 你好，这是个demo!")
-
 st.sidebar.success("在上方选择一个演示。")

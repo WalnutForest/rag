@@ -8,6 +8,7 @@ import re
 
 from storage_utils import loadindex
 from text_utils import get_node_name, get_doc_name
+from models_utils import init_models
 
 def file_delete_in_local(file, path):
     # 删除文件
@@ -56,19 +57,19 @@ def file_download2local(file, path):
 if __name__ == "__main__":
     st.set_page_config(page_title="kb_demo", page_icon="📖")
 
+    # 初始化模型
+    if 'init_models' not in st.session_state:
+        init_models()
+        st.session_state['init_models'] = True
+
     # 检查是否已经初始化StorageContext
     if 'index' not in st.session_state:
         st.session_state['index'] = loadindex("test_storage")
 
     # 知识库内容展示
     st.title("知识库")
-    # tmp_index = loadindex()
     tmp_index = loadindex("test_storage")
-    # tmp_index.delete_ref_doc("E:\python_project\\rag+streamlit\dataFiles\data.md_part_0", delete_from_docstore=True)
-    # print(tmp_index.docstore.get_all_ref_doc_info())
     st.write(tmp_index.docstore.get_all_ref_doc_info())
-
-
 
     # 上传文件进入dataFiles和storage
     uploaded_files = st.sidebar.file_uploader("上传文件", accept_multiple_files=True)
@@ -114,7 +115,6 @@ if __name__ == "__main__":
                     if re.match(rf"{option}(_part_\d+)?", get_node_name(doc)):
                         doc_ids.append(doc)
                 print("doc_ids:", doc_ids)
-                # tmp_index.delete_ref_doc(option, delete_from_docstore=True)
                 for doc_id in doc_ids:
                     tmp_index.delete_ref_doc(doc_id, delete_from_docstore=True)
                 tmp_storage = pathlib.Path(st.session_state["project_path"]).joinpath('test_storage')
