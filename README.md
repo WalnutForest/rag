@@ -23,19 +23,13 @@ conda create -n env_name python=3.10.15
 conda activate env_name
 ```
 
-依据requirements.txt安装依赖包
+下载项目文件，可以直接下载压缩包，也可以从github上克隆项目
 
 ```shell
-pip install -r requirements.txt
+git clone -b master https://github.com/WalnutForest/rag.git
 ```
 
-下载项目文件，可以直接下载压缩包，也可以从github上下载
-
-```shell
-git clone https://github.com/WalnutForest/rag.git
-```
-
-根据提示输入项目临时token：
+如果需要token，则根据提示输入项目临时token：
 ```text
 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
 ```
@@ -43,7 +37,13 @@ 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
 进入项目文件夹
 
 ```shell
-cd Rag
+cd rag
+```
+
+依据requirements.txt安装依赖包
+
+```shell
+pip install -r requirements.txt
 ```
 
 运行streamlit

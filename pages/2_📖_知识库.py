@@ -32,6 +32,11 @@ def file_download2local(file, path):
         # 50MB (1024 * 1024 为 1MB)
         chunk_size = 1024 * 1024 * 50
 
+        # 如果文件不存在则创建
+        if not save_path.exists():
+            save_path.parent.mkdir(parents=True, exist_ok=True)
+            save_path.touch()
+
         # 已写入的字节数
         bytes_written = 0
         with open(save_path, "wb") as f:
